@@ -1,0 +1,24 @@
+{
+  "name": "duyuthon7",
+  "version": "1.0.0",
+  "description": "Lucky 7 team's project (cool)",
+  "homepage": "https://github.com/iosisKR/DUYUTHON7#readme",
+  "bugs": {
+    "url": "https://github.com/iosisKR/DUYUTHON7/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iosisKR/DUYUTHON7.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

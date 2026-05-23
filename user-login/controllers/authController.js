@@ -1,9 +1,9 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { users } = require('../store');  // ← 변경
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { users } from '../store.js';  // .js 추가
 
 // 회원가입
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
@@ -31,7 +31,7 @@ exports.signup = async (req, res) => {
 };
 
 // 로그인
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
   }
 };
 // 내 정보 조회 (로그인한 사람만 접근 가능)
-exports.me = async (req, res) => {
+export const me = async (req, res) => {
   try {
     // 토큰에서 userId 꺼내서 진짜 유저 찾기
     const user = users.find(u => u._id === req.user.userId);

@@ -1,26 +1,28 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { users } = require('../store');  // ← 변경
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { users } from '../store.js';
 
 // 회원가입
-exports.signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
-    // 중복 체크
     const exists = users.find(u => u.email === email);
     if (exists) return res.status(400).json({ message: '이미 가입된 이메일입니다.' });
 
-    // 암호화
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 저장
     const user = {
-      _id: Date.now().toString(),  // 임시 ID
+      _id: Date.now().toString(),
       email,
       password: hashedPassword,
       name,
-      createdAt: new Date()
+      createdAt: new Date(),
+      
+      // 🆕 텀블러 관련 필드
+      isRenting: false,      // 대여 중 여부
+      totalRentals: 0,       // 총 대여 횟수
+      history: []            // 이용 내역 (최대 10개 유지)
     };
     users.push(user);
 
@@ -31,7 +33,7 @@ exports.signup = async (req, res) => {
 };
 
 // 로그인
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -52,19 +54,18 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: '서버 에러', error: err.message });
   }
 };
-// 내 정보 조회 (로그인한 사람만 접근 가능)
-exports.me = async (req, res) => {
+
+// 내 정보 조회 (텀블러 정보 포함!)
+export const me = async (req, res) => {
   try {
-    // 토큰에서 userId 꺼내서 진짜 유저 찾기
     const user = users.find(u => u._id === req.user.userId);
     if (!user) return res.status(404).json({ message: '유저를 찾을 수 없습니다.' });
 
-    // 비밀번호는 빼고 보내기!
     const { password, ...userInfo } = user;
     
     res.json({
       message: '인증 성공',
-      user: userInfo  // 비밀번호 제외한 정보
+      user: userInfo  // 🆕 isRenting, totalRentals, history 모두 포함됨!
     });
   } catch (err) {
     res.status(500).json({ message: '서버 에러', error: err.message });

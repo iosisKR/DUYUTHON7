@@ -21,7 +21,7 @@ const io = new Server(server);
 app.use(express.json());
 app.use("/ai", aiRoutes);
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: "https://duyuthon7.onrender.com:3000" }));
 
 app.use(express.static(path.join(__dirname, 'build')));
 

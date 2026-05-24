@@ -1,8 +1,10 @@
 import express from "express";
-import { analyzeTrash } from "../controllers/aiController.js";
+import { analyzeStock, analyzeTrash } from "../controllers/aiController.js";
 
 const router = express.Router();
 
 router.post("/analyze", analyzeTrash);
-
+router.post("/analyzeStock", analyzeStock);
+router.post("/analyzeMove", analyzeMove);
 export default router;
+

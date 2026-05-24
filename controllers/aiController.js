@@ -1,4 +1,4 @@
-import { askGeminiForAlarm } from "../services/gemini.js";
+import { askGeminiForAlarm, askGeminiForStock, askGeminiForMove } from "../services/gemini.js";
 
 export async function analyzeTrash(req, res) {
   const test = req.body.text.split("!AND!");

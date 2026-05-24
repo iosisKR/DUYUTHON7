@@ -10,3 +10,20 @@ export async function analyzeTrash(req, res) {
     result,
   });
 }
+
+export async function analyzeStock(req, res) {
+  const result = await askGeminiForStock(req.body.text);
+
+  res.json({
+    result,
+  });
+}
+
+export async function analyzeMove(req, res) {
+  const result = await askGeminiForMove(req.body.text);
+
+  res.json({
+    result,
+  });
+}
+

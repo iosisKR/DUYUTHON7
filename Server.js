@@ -62,26 +62,6 @@ export const rentalHistory = [ //임시 데이터
   },
 ];
 
-// 재고 부족 경고
-export const stockWarning = [
-  {
-    location: "신촌역",
-    rentalAvailable: 5,
-    returnAvailable: 2,
-  },
-  {
-    location: "강남역",
-    rentalAvailable: 2,
-    returnAvailable: 1,
-  },
-  {
-    location: "판교역",
-    rentalAvailable: 3,
-    returnAvailable: 2,
-  },
-];
-
-
 // ===== 미들웨어 (순서 중요!) =====
 app.use(cors({ credentials: true, origin: "https://duyuthon7.onrender.com:3000" }));
 app.use(express.json());

@@ -12,7 +12,7 @@ export async function analyzeTrash(req, res) {
 }
 
 export async function analyzeStock(req, res) {
-  const result = await askGeminiForStock(req.body.text);
+  const result = await askGeminiForStock(rentalHistory);
 
   res.json({
     result,
@@ -20,7 +20,7 @@ export async function analyzeStock(req, res) {
 }
 
 export async function analyzeMove(req, res) {
-  const result = await askGeminiForMove(req.body.text);
+  const result = await askGeminiForMove(rentalHistory);
 
   res.json({
     result,

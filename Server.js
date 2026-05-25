@@ -24,6 +24,64 @@ const port = 3000;
 const server = http.createServer(app);
 const io = new Server(server);
 
+export const rentalHistory = [ //임시 데이터
+  {
+    date: "2026-05-22",
+    time: "09:00",
+    location: "신촌역",
+    rental: 12,
+    return: 104,
+  },
+  {
+    date: "2026-05-22",
+    time: "11:00",
+    location: "홍대입구",
+    rental: 8,
+    return: 53,
+  },
+  {
+    date: "2026-05-22",
+    time: "13:00",
+    location: "강남역",
+    rental: 18,
+    return: 106,
+  },
+  {
+    date: "2026-05-22",
+    time: "15:00",
+    location: "판교역",
+    rental: 7,
+    return: 55,
+  },
+  {
+    date: "2026-05-22",
+    time: "17:00",
+    location: "건대입구",
+    rental: 10,
+    return: 58,
+  },
+];
+
+// 재고 부족 경고
+export const stockWarning = [
+  {
+    location: "신촌역",
+    rentalAvailable: 5,
+    returnAvailable: 2,
+  },
+  {
+    location: "강남역",
+    rentalAvailable: 2,
+    returnAvailable: 1,
+  },
+  {
+    location: "판교역",
+    rentalAvailable: 3,
+    returnAvailable: 2,
+  },
+];
+
+
 // ===== 미들웨어 (순서 중요!) =====
 app.use(cors({ credentials: true, origin: "https://duyuthon7.onrender.com:3000" }));
 app.use(express.json());
@@ -69,13 +127,24 @@ export { io };
 // ===== 서버 시작 =====
 server.listen(port, () => {
     console.log(`🚀 server listening on port ${port}`);
-    재고부족사전경고();
 });
+
 
 async function 재고부족사전경고() {
     try {
-        const result = await askGeminiForAlarm("길거리쓰레기!AND!텀블러 15회 사용");
+        const result = await askGeminiForStock("내용");
         console.log(result);
+        return result;
+    } catch (error) {
+        console.error("Gemini 오류:", error.message);
+    }
+}
+
+async function 재배치추천() {
+    try {
+        const result = await askGeminiForMove("내용");
+        console.log(result);
+        return result;
     } catch (error) {
         console.error("Gemini 오류:", error.message);
     }

@@ -7,4 +7,3 @@ router.post("/analyze", analyzeTrash);
 router.post("/analyzeStock", analyzeStock);
 router.post("/analyzeMove", analyzeMove);
 export default router;
-

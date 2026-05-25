@@ -1,5 +1,5 @@
 import { askGeminiForAlarm, askGeminiForStock, askGeminiForMove } from "../services/gemini.js";
-import rentalHistory from "../Server.js"
+import { rentalHistory } from "../Server.js"
 export async function analyzeTrash(req, res) {
   console.log("가라 환경 정화 분석!")
   const test = req.body.text.split("!AND!");

@@ -64,9 +64,10 @@ export const rentalHistory = [ //임시 데이터
 
 // ===== 미들웨어 (순서 중요!) =====
 app.use(cors({ credentials: true, origin: "https://duyuthon7.onrender.com:3000" }));
-app.use(cors({ credentials: true, origin: "https://localhost:5173" }));
-app.use(cors({ credentials: true, origin: "https://localhost:3000" }));
+//app.use(cors({ credentials: true, origin: "https://localhost:5173" }));
+//app.use(cors({ credentials: true, origin: "https://localhost:3000" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ===== API 라우터 등록 =====
 app.use("/ai", aiRoutes);                       // AI 관련 (기존)
